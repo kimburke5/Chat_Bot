@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset=utf-8 />
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+    
+   
+    <textarea id="outPut"></textarea>
+    <form id="chatInput">
+        <input type="text" id="userinput">
+        <input type="submit" value="Reply" class="btn btn-secondary">
+    </form>
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <script>
+        $('#outPut').append('Eliza: Welcome, My name is Eliza, how are you feeling today?' + '\n\n');
+        $("#chatInput").submit(function(event) {
+            event.preventDefault(); // prevents default action of the submit button
+            //Ajax implementation 
+            //sends a request to our webApp.go with the users input
+            //prints user: followed by the users input and Chatbot: followed by the webApp.go response
+            //this gives us a live chat function without the need to refresh the page.
+            jQuery.get('/userinput', {
+                value: $('#userinput').val()
+            }).done(function(goeliza) {
+                $('#outPut').append('You : ' + $('#userinput').val() + '\n\n');
+                $('#outPut').append("Eliza: " + goeliza + '\n\n');
+                $('#outPut').scrollTop($('#outPut')[0].scrollHeight);
+                $('#userinput').val("")
+            })
+        });
+    </script>
+
+</body>
+
+</html>
