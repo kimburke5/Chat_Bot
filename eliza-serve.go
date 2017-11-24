@@ -29,7 +29,7 @@ func userInputHandler(w http.ResponseWriter, r *http.Request) {
 	userinput := r.URL.Query().Get("userinput")
 	reply := startEliza(userinput)
 	fmt.Fprintf(w, reply)
-} //chatHandler
+} //inputHandler
 
 func startEliza(input string) string {
 
